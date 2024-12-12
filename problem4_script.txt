@@ -1,0 +1,33 @@
+#########################################################
+#  file name   : problem4_script.txt                    #
+#  author      : Thomas Farmer                          #
+#  description : PennSim script file to automate        #
+#                assembling, loading, reset, and PC set #
+#########################################################
+
+# clear the PennSim screen
+clear
+
+# reset PennSim Simulator (clears all memory/regs)
+reset
+
+# Assembles problem4.asm, user_start.asm, lc4_stdio.asm 
+# AND "links" them into one problem4.obj file
+as problem4 user_start lc4_stdio problem3
+
+# load the linked problem4.obj into program memory
+ld problem4
+
+# Assemble the OS separately (no need to link it to problem4.obj)
+as os os
+
+# load the OS into OS program memory
+ld os
+
+# we will not need to set PC to 0, instead PC=8200
+# will be fine (that's default) as that is where
+# os.obj will be loaded
+# set PC 0
+
+# once the PC = this label, it will stop the LC4
+break set END
